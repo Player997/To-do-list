@@ -26,10 +26,10 @@ A sleek and intuitive task scheduler and to-do list built with **HTML**, **CSS**
    open task\ scheduler.html  # or double-click to open in browser
    ```
 
-## 🌐 Live Demo
+## Live Demo
 
-Check it out live here:
-🔗 [Live Demo](https://player997.github.io/task-scheduler/task%20scheduler.html)
+Check out the demo: [Live link](https://player997.github.io/task-scheduler/task scheduler.html)
+
 
 > The `%20` in the URL encodes the space in the filename for proper web access.
 
