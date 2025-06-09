@@ -34,7 +34,7 @@ A sleek and intuitive task scheduler and to-do list built with **HTML**, **CSS**
 ## 🌐 Live Demo
 
 Check it out live here:
-🔗 [Live Demo](https://your-username.github.io/task-scheduler/task-scheduler.html)
+🔗 [Live Demo]([https://your-username.github.io/task-scheduler/task-scheduler.html](https://player997.github.io/task-scheduler/))
 
 > Replace the URL above with your actual GitHub Pages link once deployed.
 
