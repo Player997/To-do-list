@@ -17,7 +17,7 @@ A sleek and intuitive task scheduler and to-do list built with **HTML**, **CSS**
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/Player997/task-scheduler.git
-````
+```
 
 2. **Open the HTML file in a browser:**
 
@@ -30,8 +30,6 @@ A sleek and intuitive task scheduler and to-do list built with **HTML**, **CSS**
 
 Check out the demo: [Live link](https://player997.github.io/task-scheduler/task scheduler.html)
 
-
-> The `%20` in the URL encodes the space in the filename for proper web access.
 
 ## 📁 Project Structure
 
