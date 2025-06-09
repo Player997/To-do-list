@@ -15,28 +15,29 @@ A sleek and intuitive task scheduler and to-do list built with **HTML**, **CSS**
 ## 🚀 Getting Started
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/Player997/task-scheduler.git
-```
+   ```
 
 2. **Open the HTML file in a browser:**
 
    ```bash
    cd task-scheduler
-   open task\ scheduler.html  # or double-click to open in browser
+   open index.html  # or double-click to open in browser
    ```
-
+   
 ## Live Demo
 
-Check out the demo:(https://player997.github.io/task-scheduler/task-scheduler.html)
+Check out the demo:(https://player997.github.io/task-scheduler/index.html)
 
 
 ## 📁 Project Structure
 
 ```
 task-scheduler/
-├── task scheduler.html    # Main app file (HTML + embedded CSS/JS)
-└── README.md              # Project overview
+├── index.html    # Main app file (HTML + embedded CSS/JS)
+└── README.md     # Project overview
 ```
 
 ## 🛠️ Built With
