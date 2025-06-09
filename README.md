@@ -1,8 +1,3 @@
-Thanks, Aditya! Based on your clarification, here's your finalized `README.md` with the correct file name **`task-scheduler.html`** and a placeholder for the **Live Demo** link:
-
----
-
-````markdown
 # 🗓️ Task Scheduler & To-Do List
 
 A sleek and intuitive task scheduler and to-do list built with **HTML**, **CSS**, and **JavaScript**. This minimal single-page app helps users plan and manage daily tasks effectively with a smooth user interface and optional dark mode.
@@ -34,9 +29,9 @@ A sleek and intuitive task scheduler and to-do list built with **HTML**, **CSS**
 ## 🌐 Live Demo
 
 Check it out live here:
-🔗 [Live Demo]
+🔗 [Live Demo]([https://your-username.github.io/task-scheduler/task-scheduler.html](https://player997.github.io/task-scheduler/))
 
-(https://player997.github.io/task-scheduler/task-scheduler.html)
+> Replace the URL above with your actual GitHub Pages link once deployed.
 
 ## 📁 Project Structure
 
@@ -62,6 +57,5 @@ task-scheduler/
 
 ## 🧑‍💻 Author
 
-**Aditya Verma** – [@Player997](https://github.com/yourgithubusername)
-
+**Aditya Verma** – [@yourgithubusername](https://github.com/yourgithubusername)
 
