@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Task Scheduler & To-Do List</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+  :root {
+    --black: #1e293b;
+    --gray-base: #6b7280;
+    --background: #ffffff;
+    --card-bg: #f9fafb;
+    --accent: #111827;
+    --border-radius: 0.75rem;
+    --transition: 0.3s ease;
+    --font-family: 'Poppins', sans-serif;
+    --green: #22c55e;
+    --red: #ef4444;
+    --blue: #3b82f6;
+  }
+
+  body.dark {
+    --background: #0f172a;
+    --card-bg: #1e293b;
+    --gray-base: #cbd5e1;
+    --accent: #f8fafc;
+    background-color: var(--background);
+    color: var(--gray-base);
+  }
+
+  body.dark ul.tasks li {
+    background: var(--card-bg);
+  }
+
+  body.dark .task-title {
+    color: var(--accent);
+  }
+
+  body.dark .task-time {
+    color: var(--gray-base);
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-family);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background-color: var(--background);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    padding: 1rem 2rem;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.5s ease;
+  }
+
+  header .logo {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--accent);
+    user-select: none;
+  }
+
+  .dark-mode-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider {
+    background-color: var(--blue);
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(24px);
+  }
+
+  .switch .icons {
+    position: absolute;
+    top: 4px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 6px;
+    pointer-events: none;
+    font-size: 14px;
+    color: white;
+  }
+
+  main {
+    flex-grow: 1;
+    max-width: 900px;
+    margin: 3.5rem auto 4rem;
+    width: 90%;
+  }
+
+  h1.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    text-align: center;
+    animation: fadeIn 1.2s ease;
+  }
+
+  p.hero-subtext {
+    font-size: 1.125rem;
+    color: var(--gray-base);
+    margin-top: 0;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  @keyframes fadeIn {
+    0% {opacity: 0; transform: translateY(-20px);}
+    100% {opacity: 1; transform: translateY(0);}
+  }
+
+  form {
+    background-color: var(--card-bg);
+    padding: 1.75rem 2.25rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 16px rgb(0 0 0 / 0.1);
+    margin-bottom: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: flex-end;
+    transition: background-color 0.5s ease;
+  }
+
+  form label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--accent);
+    flex: 1 1 280px;
+  }
+
+  form input[type="text"],
+  form input[type="time"],
+  form input[type="date"] {
+    margin-top: 0.4rem;
+    padding: 0.6rem 0.9rem;
+    font-size: 1rem;
+    border: 1.5px solid #d1d5db;
+    border-radius: 0.5rem;
+    background: white;
+    color: var(--accent);
+    transition: all var(--transition);
+  }
+
+  body.dark form input[type="text"],
+  body.dark form input[type="time"],
+  body.dark form input[type="date"] {
+    background-color: var(--card-bg);
+    color: var(--accent);
+  }
+
+  form input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+  }
+
+  form button {
+    background-color: var(--green);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.75rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition), transform 0.2s ease;
+  }
+
+  form button:hover,
+  form button:focus {
+    background-color: #16a34a;
+    transform: scale(1.05);
+  }
+
+  section.todo-list {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 16px rgb(0 0 0 / 0.05);
+    padding: 1.5rem 2rem;
+    transition: background-color 0.5s ease;
+  }
+
+  section.todo-list h2 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+  }
+
+  ul.tasks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul.tasks li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    background: white;
+    margin-bottom: 1rem;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 0.08);
+    transition: all 0.3s ease;
+  }
+
+  ul.tasks li:hover {
+    transform: scale(1.01);
+    box-shadow: 0 6px 16px rgb(0 0 0 / 0.12);
+  }
+
+  ul.tasks li.completed .task-title {
+    text-decoration: line-through;
+    color: #94a3b8;
+  }
+
+  .task-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-wrap: anywhere;
+  }
+
+  .task-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--accent);
+    transition: color var(--transition);
+  }
+
+  .task-time {
+    font-size: 0.9rem;
+    color: var(--gray-base);
+    margin-top: 0.25rem;
+  }
+
+  .task-actions {
+    flex-shrink: 0;
+    margin-left: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  button.action-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: var(--gray-base);
+    transition: all 0.2s ease;
+  }
+
+  button.action-btn:hover {
+    color: var(--accent);
+    transform: scale(1.2);
+  }
+
+  .action-complete {
+    color: var(--green);
+  }
+
+  .action-delete {
+    color: var(--red);
+  }
+
+  @media (max-width: 480px) {
+    form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    form label, form button {
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Task Scheduler</div>
+  <div class="dark-mode-switch">
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="slider"></span>
+      <span class="icons"><span>🌞</span><span>🌙</span></span>
+    </label>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <h1 class="hero-title">📅 Schedule and Track Your Tasks</h1>
+    <p class="hero-subtext">Organize your day efficiently and get reminders at the right time!</p>
+  </section>
+
+  <form id="taskForm">
+    <label>
+      Task Title
+      <input type="text" id="taskTitle" placeholder="e.g. Attend Meeting" required />
+    </label>
+    <label>
+      Date
+      <input type="date" id="taskDate" required />
+    </label>
+    <label>
+      Time
+      <input type="time" id="taskTime" required />
+    </label>
+    <button type="submit">Add Task</button>
+  </form>
+
+  <section class="todo-list">
+    <h2>Your Tasks</h2>
+    <ul class="tasks" id="taskList"></ul>
+  </section>
+</main>
+
+<script>
+(function() {
+  const taskForm = document.getElementById('taskForm');
+  const taskList = document.getElementById('taskList');
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  let tasks = [];
+
+  taskForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const title = document.getElementById('taskTitle').value;
+    const date = document.getElementById('taskDate').value;
+    const time = document.getElementById('taskTime').value;
+    const task = { title, date, time, completed: false };
+    tasks.push(task);
+    saveTasks();
+    renderTasks();
+    taskForm.reset();
+  });
+
+  function loadTasks() {
+    const stored = localStorage.getItem('tasks');
+    if (stored) tasks = JSON.parse(stored);
+  }
+
+  function saveTasks() {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
+  function renderTasks() {
+    taskList.innerHTML = '';
+    tasks.forEach((task, index) => {
+      const li = document.createElement('li');
+      if (task.completed) li.classList.add('completed');
+      li.innerHTML = `
+        <div class="task-info">
+          <span class="task-title">${task.title}</span>
+          <span class="task-time">${task.date} @ ${task.time}</span>
+        </div>
+        <div class="task-actions">
+          <button class="action-btn action-complete" onclick="toggleComplete(${index})">✔</button>
+          <button class="action-btn action-delete" onclick="deleteTask(${index})">✖</button>
+        </div>`;
+      taskList.appendChild(li);
+    });
+  }
+
+  window.toggleComplete = function(index) {
+    tasks[index].completed = !tasks[index].completed;
+    saveTasks();
+    renderTasks();
+  };
+
+  window.deleteTask = function(index) {
+    tasks.splice(index, 1);
+    saveTasks();
+    renderTasks();
+  };
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    darkModeToggle.checked = isDark;
+    localStorage.setItem('darkMode', isDark);
+  }
+
+  darkModeToggle.addEventListener('change', toggleDarkMode);
+
+  function checkDarkModePreference() {
+    const isDark = localStorage.getItem('darkMode') === 'true';
+    if (isDark) document.body.classList.add('dark');
+    darkModeToggle.checked = isDark;
+  }
+
+  checkDarkModePreference();
+  loadTasks();
+  renderTasks();
+})();
+</script>
+</body>
+</html>
