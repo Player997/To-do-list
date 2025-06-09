@@ -28,7 +28,7 @@ A sleek and intuitive task scheduler and to-do list built with **HTML**, **CSS**
 
 ## Live Demo
 
-Check out the demo: [Live link](https://player997.github.io/task-scheduler/task scheduler.html)
+Check out the demo:(https://player997.github.io/task-scheduler/task-scheduler.html)
 
 
 ## 📁 Project Structure
